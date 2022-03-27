@@ -1,36 +1,46 @@
 import cx_Oracle
-DB_URL="SYSTEM/admin@192.168.0.17"
+DB_URL="SYSTEM/admin@192.168.0.17/databasedemo"
 def querry(sql):
     try:
         con = cx_Oracle.connect(DB_URL)
         cursor = con.cursor()
         cursor.execute(sql)
-        rows = cursor.fetchall()
-        print(rows)
-        return rows
+        return cursor
     except cx_Oracle.DatabaseError as e:
         print("There is a problem with Oracle", e)
     except Exception as err:
         print("Error:"+str(err))
-    # finally:
-    #     if cursor:
-    #         cursor.close()
-    #     if con:
-    #         con.close()
 
 def oneletrajzokQuerry():
-    querry('select * from Oneletrajzok')
+    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'oneletrajzok\'')
+    result = querry('select * from Oneletrajzok')
+    return colnames,result
 def hirdetesekQuerry():
-    querry('select * from Hirdetesek')
+    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'hirdetesek\'')
+    result = querry('select * from Hirdetesek')
+    return colnames, result
 def felhasznaloQuerry():
-    querry('select * from Felhasznalo')
+    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'felhasznalo\'')
+    result = querry('select * from Felhasznalo')
+    return colnames, result
 def munkaAdoQuerry():
-    querry('select * from Munkaado')
+    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'munkaado\'')
+    result = querry('select * from Munkaado')
+    return colnames,result
 def hirdetesFeladasQuerry():
-    querry('select * from HirdetesFeladas')
+    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'hirdetesFeladas\'')
+    result = querry('select * from HirdetesFeladas')
+    return colnames, result
 def allaskeresoQuerry():
-    querry('select * from Allaskereso')
+    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'allaskereso\'')
+    result = querry('select * from Allaskereso')
+    return colnames, result
 def birtokolQuerry():
-    querry('select * from Birtokol')
+    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'birtokol\'')
+    result = querry('select * from Birtokol')
+    return colnames, result
 def jelentkezesQuerry():
-    querry('select * from Jelentkezes')
+    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'jelentkezes\'')
+    result = querry('select * from Jelentkezes')
+    return colnames, result
+
