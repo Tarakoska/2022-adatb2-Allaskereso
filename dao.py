@@ -1,46 +1,81 @@
 import cx_Oracle
-DB_URL="SYSTEM/admin@192.168.0.17/databasedemo"
-def querry(sql):
+from var import *
+
+DB_URL="SYSTEM/admin@localhost/databasedemo"
+
+
+def selectAll(sql):
+    global con, cursor
     try:
         con = cx_Oracle.connect(DB_URL)
         cursor = con.cursor()
         cursor.execute(sql)
-        return cursor
+        ret = cursor.fetchall()
+        return ret
     except cx_Oracle.DatabaseError as e:
         print("There is a problem with Oracle", e)
     except Exception as err:
         print("Error:"+str(err))
+    finally:
+        cursor.close()
+        con.close()
 
-def oneletrajzokQuerry():
-    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'oneletrajzok\'')
-    result = querry('select * from Oneletrajzok')
-    return colnames,result
-def hirdetesekQuerry():
-    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'hirdetesek\'')
-    result = querry('select * from Hirdetesek')
-    return colnames, result
-def felhasznaloQuerry():
-    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'felhasznalo\'')
-    result = querry('select * from Felhasznalo')
-    return colnames, result
-def munkaAdoQuerry():
-    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'munkaado\'')
-    result = querry('select * from Munkaado')
-    return colnames,result
-def hirdetesFeladasQuerry():
-    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'hirdetesFeladas\'')
-    result = querry('select * from HirdetesFeladas')
-    return colnames, result
-def allaskeresoQuerry():
-    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'allaskereso\'')
-    result = querry('select * from Allaskereso')
-    return colnames, result
-def birtokolQuerry():
-    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'birtokol\'')
-    result = querry('select * from Birtokol')
-    return colnames, result
-def jelentkezesQuerry():
-    colnames = querry('select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)=\'jelentkezes\'')
-    result = querry('select * from Jelentkezes')
+def selectAllColName(table_name):
+    global con, cursor
+    try:
+        con = cx_Oracle.connect(DB_URL)
+        cursor = con.cursor()
+        cursor.execute(COL_NAME_SQL, table_name=table_name)
+        ret = cursor.fetchall()
+        return ret
+    except cx_Oracle.DatabaseError as e:
+        print("There is a problem with Oracle", e)
+    except Exception as err:
+        print("Error:"+str(err))
+    finally:
+        cursor.close()
+        con.close()
+
+
+
+def querry(tab_name):
+    colnames = selectAllColName(tab_name.value)
+    match tab_name:
+        case Tabla.ONELETRAJZ:
+            result = selectAll(SELECT_ALL_ONEL)
+        case Tabla.HIRDETESEK:
+            result = selectAll(SELECT_ALL_HIRD)
+        case Tabla.FELHASZNALO:
+            result = selectAll(SELECT_ALL_FELH)
+        case Tabla.MUNKAADO:
+            result = selectAll(SELECT_ALL_MUNK)
+        case Tabla.HIRDETESFELAD:
+            result = selectAll(SELECT_ALL_HIFE)
+        case Tabla.ALLASKERESO:
+            result = selectAll(SELECT_ALL_ALLA)
+        case Tabla.BIRTOKOL:
+            result = selectAll(SELECT_ALL_BIRT)
+        case Tabla.JELENTKEZES:
+            result = selectAll(SELECT_ALL_JELE)
+        case Tabla.SZAKMAK:
+            result = selectAll(SELECT_ALL_SZAK)
+        case _:
+            result = selectAll(SELECT_ALL_ONEL)
+
     return colnames, result
 
+def insert(sql,values):
+    global con, cursor
+    try:
+        con = cx_Oracle.connect(DB_URL)
+        cursor = con.cursor()
+        cursor.execute(sql,values)
+        con.commit()
+        return
+    except cx_Oracle.DatabaseError as e:
+        print("There is a problem with Oracle: ", e)
+    except Exception as err:
+        print("Error:"+str(err))
+    finally:
+        cursor.close()
+        con.close()
