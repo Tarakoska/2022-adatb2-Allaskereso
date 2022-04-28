@@ -1,0 +1,27 @@
+-- triggerek
+
+CREATE OR REPLACE TRIGGER azonos_fh
+BEFORE INSERT
+   ON Felhasznalo
+   FOR EACH ROW
+DECLARE
+   fh_count number;  
+BEGIN  
+   SELECT COUNT(*) INTO fh_count FROM Felhasznalo WHERE FELHNEV = :new.FELHNEV;
+   if fh_count > 0 then   
+      RAISE_APPLICATION_ERROR(-20002,'Már létezik ilyen felhasználónév!');
+   end if;
+END;
+
+CREATE OR REPLACE TRIGGER felhasznalo_email
+BEFORE INSERT OR UPDATE
+   ON FELHASZNALO
+   FOR EACH ROW
+DECLARE
+   formatum NUMBER;     
+BEGIN  
+   SELECT COUNT(*) INTO formatum FROM Felhasznalo WHERE :NEW.EMAIL LIKE '%@%.%' AND REGEXP_COUNT(:NEW.EMAIL, '@') = 1;
+   if formatum = 0 then   
+      RAISE_APPLICATION_ERROR(-20003,'Érvénytelen email formátum');
+   end if;
+END;
