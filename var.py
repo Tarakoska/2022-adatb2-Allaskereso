@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Tabla(Enum):
     ONELETRAJZ = "oneletrajzok"
     HIRDETESEK = "hirdetesek"
@@ -10,7 +11,6 @@ class Tabla(Enum):
     BIRTOKOL = "birtokol"
     JELENTKEZES = "jelentkezes"
     SZAKMAK = "szakmak"
-
 
 
 COL_NAME_SQL = "select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)= :table_name"
@@ -30,7 +30,7 @@ INSERT_HIRD = "INSERT INTO Hirdetesek (nev, leiras) VALUES (:nev, :leiras)"
 INSERT_FELH = "INSERT INTO Felhasznalo (veznev, kernev, felhnev, jelszo, email, varos, utca, hazszam, telefon, isadmin) VALUES (:veznev, :kernev, :felhnev, :jelszo, :email, :varos, :utca, :hazszam, :telefon, :isadmin)"
 INSERT_MUNK = "INSERT INTO Munkaado (beosztas, ertekeles, feid) VALUES (:beosztas, :ertekeles, :feid)"
 INSERT_HIFE = "INSERT INTO HirdetesFeladas (muid) VALUES (:muid)"
-INSERT_ALLA = "NSERT INTO Allaskereso (szulido, onid, feid) VALUES (TO_DATE(:szulido), :onid, :feid)"
+INSERT_ALLA = "INSERT INTO Allaskereso (szulido, onid, feid) VALUES (TO_DATE(:szulido), :onid, :feid)"
 INSERT_BIRT = "INSERT INTO Birtokol (szakid, allid) VALUES (:szakid, :allid)"
 INSERT_JELE = "INSERT INTO Jelentkezes (allid, hiid) VALUES (:allid, :hiid)"
 INSERT_SZAK = "INSERT INTO Szakmak (nev, leiras) VALUES (:nev, :leiras)"
