@@ -4,78 +4,75 @@ from var import *
 DB_URL="SYSTEM/admin@localhost/databasedemo"
 
 
-def selectAll(sql):
+def getCursor():
     global con, cursor
     try:
         con = cx_Oracle.connect(DB_URL)
         cursor = con.cursor()
-        cursor.execute(sql)
-        ret = cursor.fetchall()
-        return ret
+        return con, cursor
     except cx_Oracle.DatabaseError as e:
         print("There is a problem with Oracle", e)
     except Exception as err:
         print("Error:"+str(err))
     finally:
-        cursor.close()
-        con.close()
+        if cursor in globals() or cursor in locals():
+            cursor.close()
+        if con in globals() or con in locals():
+            con.close()
+
+def destroyCursor(con, cursor):
+    cursor.close()
+    con.close()
+
+
+def selectAll(sql):
+    con, cursor = getCursor()
+    cursor.execute(sql)
+    ret = cursor.fetchall()
+    destroyCursor(con, cursor)
+    return ret
 
 def selectAllColName(table_name):
-    global con, cursor
-    try:
-        con = cx_Oracle.connect(DB_URL)
-        cursor = con.cursor()
-        cursor.execute(COL_NAME_SQL, table_name=table_name)
-        ret = cursor.fetchall()
-        return ret
-    except cx_Oracle.DatabaseError as e:
-        print("There is a problem with Oracle", e)
-    except Exception as err:
-        print("Error:"+str(err))
-    finally:
-        cursor.close()
-        con.close()
+    con, cursor = getCursor()
+    cursor.execute(COL_NAME_SQL, table_name=table_name)
+    ret = cursor.fetchall()
+    destroyCursor(con, cursor)
+    return ret
 
 
+def insert(sql,values):
+    con, cursor = getCursor()
+    cursor.execute(sql,values)
+    con.commit()
+    destroyCursor(con, cursor)
+
+def update(sql,values):
+    con, cursor = getCursor()
+    cursor.execute(sql,values)
+    con.commit()
+    destroyCursor(con, cursor)
+
+
+def querryOne(tab_name,id):
+    sql = SELECT_ONE.format(usertable=tab_name.value)
+    con, cursor = getCursor()
+    cursor.execute(sql, id_input=id)
+    ret = cursor.fetchall()
+    destroyCursor(con, cursor)
+    return ret
+
+
+def delete(tab_name,id):
+    sql = DELETE_ONE.format(usertable=tab_name.value)
+    con, cursor = getCursor()
+    cursor.execute(sql,id_input=id)
+    con.commit()
+    destroyCursor(con, cursor)
 
 def querry(tab_name):
     colnames = selectAllColName(tab_name.value)
-    match tab_name:
-        case Tabla.ONELETRAJZ:
-            result = selectAll(SELECT_ALL_ONEL)
-        case Tabla.HIRDETESEK:
-            result = selectAll(SELECT_ALL_HIRD)
-        case Tabla.FELHASZNALO:
-            result = selectAll(SELECT_ALL_FELH)
-        case Tabla.MUNKAADO:
-            result = selectAll(SELECT_ALL_MUNK)
-        case Tabla.HIRDETESFELAD:
-            result = selectAll(SELECT_ALL_HIFE)
-        case Tabla.ALLASKERESO:
-            result = selectAll(SELECT_ALL_ALLA)
-        case Tabla.BIRTOKOL:
-            result = selectAll(SELECT_ALL_BIRT)
-        case Tabla.JELENTKEZES:
-            result = selectAll(SELECT_ALL_JELE)
-        case Tabla.SZAKMAK:
-            result = selectAll(SELECT_ALL_SZAK)
-        case _:
-            result = selectAll(SELECT_ALL_ONEL)
+    query = SELECT_ALL.format(usertable=tab_name.value)
+    return colnames,selectAll(query)
 
-    return colnames, result
 
-def insert(sql,values):
-    global con, cursor
-    try:
-        con = cx_Oracle.connect(DB_URL)
-        cursor = con.cursor()
-        cursor.execute(sql,values)
-        con.commit()
-        return
-    except cx_Oracle.DatabaseError as e:
-        print("There is a problem with Oracle: ", e)
-    except Exception as err:
-        print("Error:"+str(err))
-    finally:
-        cursor.close()
-        con.close()
+
