@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Tabla(Enum):
     ONELETRAJZ = "oneletrajzok"
     HIRDETESEK = "hirdetesek"
@@ -10,7 +11,6 @@ class Tabla(Enum):
     BIRTOKOL = "birtokol"
     JELENTKEZES = "jelentkezes"
     SZAKMAK = "szakmak"
-
 
 
 COL_NAME_SQL = "select COLUMN_NAME FROM ALL_TAB_COLUMNS where LOWER(TABLE_NAME)= :table_name"
