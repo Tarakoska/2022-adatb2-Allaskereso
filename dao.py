@@ -1,7 +1,7 @@
 import cx_Oracle
 from var import *
 
-DB_URL="SYSTEM/admin@localhost/databasedemo"
+DB_URL="SYSTEM/admin@localhost/Allasborze"
 
 
 def getCursor():
@@ -74,5 +74,9 @@ def querry(tab_name):
     query = SELECT_ALL.format(usertable=tab_name.value)
     return colnames,selectAll(query)
 
+def querrySpec(tab_name):
+    match tab_name:
+        case Tabla.EZERMESTEREK:query = EZERMESTEREK_SQL
+    return colnames[tab_name],selectAll(query)
 
 
