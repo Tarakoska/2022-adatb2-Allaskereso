@@ -428,6 +428,7 @@ Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('Autószerel?','Porsche hung�
 Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('Alkatrész értékesít?','A BárdiAuto alkatrész értékesít? munkakörbe keres fiatalokat',7);
 Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('Ács tanuló','Tet?szerkezetek építésével foglalkozó cég keres ács tanuló munkatársat.',2);
 Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('K?m?ves','Családi házak építésével foglalkozó cég keres szakmai tapasztalattal rendelkez? k?m?vest.',3);
+Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('K?m?ves','Családi házak építésével foglalkozó cég keres szakmai tapasztalattal rendelkez? k?m?vest.',3);
 
 
 Insert into HIRDETESFELADAS (MIKOR,MUID,HIID) values (to_timestamp('28-04-22 12.20.51.966408000','DD-MM-RR HH24.MI.SS.FF'),1,1);
@@ -438,6 +439,7 @@ Insert into HIRDETESFELADAS (MIKOR,MUID,HIID) values (to_timestamp('28-04-22 12.
 Insert into HIRDETESFELADAS (MIKOR,MUID,HIID) values (to_timestamp('28-04-22 12.20.51.966408000','DD-MM-RR HH24.MI.SS.FF'),6,6);
 Insert into HIRDETESFELADAS (MIKOR,MUID,HIID) values (to_timestamp('28-04-22 12.20.51.966408000','DD-MM-RR HH24.MI.SS.FF'),7,7);
 Insert into HIRDETESFELADAS (MIKOR,MUID,HIID) values (to_timestamp('28-04-22 12.20.51.966408000','DD-MM-RR HH24.MI.SS.FF'),8,8);
+Insert into HIRDETESFELADAS (MIKOR,MUID,HIID) values (to_timestamp('28-04-22 12.20.51.966408000','DD-MM-RR HH24.MI.SS.FF'),8,9);
 
 
 Insert into JELENTKEZES (MIKOR,ALLID,HIID) values (to_timestamp_tz('28-04-22 12.27.42.687001000 EUROPE/PRAGUE','DD-MM-RR HH24.MI.SS.FF TZR'),1,2);
