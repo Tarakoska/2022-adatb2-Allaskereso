@@ -201,6 +201,7 @@ Insert into FELHASZNALO (VEZNEV,KERNEV,FELHNEV,JELSZO,EMAIL,VAROS,UTCA,HAZSZAM,T
 Insert into FELHASZNALO (VEZNEV,KERNEV,FELHNEV,JELSZO,EMAIL,VAROS,UTCA,HAZSZAM,TELEFON,ISADMIN) values ('Havasi','Imre','Adiaphoron','8273091','donna68@hotmail.com','Makó','Pipacs',9,'2806093',0);
 Insert into FELHASZNALO (VEZNEV,KERNEV,FELHNEV,JELSZO,EMAIL,VAROS,UTCA,HAZSZAM,TELEFON,ISADMIN) values ('Arany','Szabolcs','Titter','3357003','jimmie23@graham.com','Harkakötöny','Páfrány',3,'898676',0);
 Insert into FELHASZNALO (VEZNEV,KERNEV,FELHNEV,JELSZO,EMAIL,VAROS,UTCA,HAZSZAM,TELEFON,ISADMIN) values ('Karinthy','Anna','jojo','6719164','schimmel.dusty@hotmail.com','Kiskunhalas','Rózsa',11,'3736229',0);
+Insert into FELHASZNALO (VEZNEV,KERNEV,FELHNEV,JELSZO,EMAIL,VAROS,UTCA,HAZSZAM,TELEFON,ISADMIN) values ('ADMIN','admin','admin','asd','admin@allasborze.com','Szeged','Rózsa',11,'3736229',1);
 
 
 Insert into ONELETRAJZOK (FILENEV,FORMATUM,FEID) values ('Onelet','PDF',1);
@@ -368,13 +369,13 @@ Insert into BIRTOKOL (SZAKID,ALLID) values (3,47);
 Insert into BIRTOKOL (SZAKID,ALLID) values (6,48);
 Insert into BIRTOKOL (SZAKID,ALLID) values (4,49);
 
-Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('HR',2,50);
-Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Vezet?',5,51);
-Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Beosztott',9,52);
-Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('F?nök',10,53);
+Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('HR',2,40);
+Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Vezet?',5,41);
+Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Beosztott',9,42);
+Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('F?nök',10,43);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Küls? munkatárs',7,54);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('HR',1,55);
-Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Vezet?',6,56);
+Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Vezet?',6,46);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Beosztott',2,57);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('F?nök',7,58);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Küls? munkatárs',4,59);
@@ -392,18 +393,18 @@ Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('HR',8,70);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Vezet?',3,71);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Beosztott',8,72);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('F?nök',10,73);
-Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Küls? munkatárs',2,74);
+Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Küls? munkatárs',2,44);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('HR',5,75);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Vezet?',5,76);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Beosztott',6,77);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('F?nök',2,78);
-Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Küls? munkatárs',4,79);
+Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Küls? munkatárs',4,49);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('HR',4,80);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Vezet?',6,81);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Beosztott',5,82);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('F?nök',8,83);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Küls? munkatárs',10,84);
-Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('HR',8,85);
+Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('HR',8,45);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Vezet?',1,86);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('Beosztott',2,87);
 Insert into MUNKAADO (BEOSZTAS,ERTEKELES,FEID) values ('F?nök',8,88);
@@ -428,7 +429,7 @@ Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('Autószerel?','Porsche hung�
 Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('Alkatrész értékesít?','A BárdiAuto alkatrész értékesít? munkakörbe keres fiatalokat',7);
 Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('Ács tanuló','Tet?szerkezetek építésével foglalkozó cég keres ács tanuló munkatársat.',2);
 Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('K?m?ves','Családi házak építésével foglalkozó cég keres szakmai tapasztalattal rendelkez? k?m?vest.',3);
-Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('K?m?ves','Családi házak építésével foglalkozó cég keres szakmai tapasztalattal rendelkez? k?m?vest.',3);
+Insert into HIRDETESEK (NEV,LEIRAS,SZAKID) values ('HidegBurkoló','Hőszigetelés felszerelése különböző felületű épületekre.',3);
 
 
 Insert into HIRDETESFELADAS (MIKOR,MUID,HIID) values (to_timestamp('28-04-22 12.20.51.966408000','DD-MM-RR HH24.MI.SS.FF'),1,1);

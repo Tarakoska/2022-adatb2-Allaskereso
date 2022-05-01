@@ -18,8 +18,8 @@ class Tabla(Enum):
     MEGFELELO_ALLASOK = "Megfeleő Állások"
     LEGKIVANTABB_ALLAS = "Legtöbben megpályázott állások"
     LEGFIATALABB = "Legfiatalabb munkakeresőnk"
-    SQL_8 = "sql8"
-    SQL_9 = "sql9"
+    LEGELSO_HIRDETOK = "Legelső hirdetők"
+    ALLASHIRDETOK_KERESOK = "Állás hirdetők és keresők is"
     LOGIN = "Bejelentkezés"
     REGIST = "Regisztráció"
 
@@ -88,11 +88,11 @@ inputs = {
         "label": [],
         "type": []
     },
-    Tabla.SQL_8: {
+    Tabla.LEGELSO_HIRDETOK: {
         "label": [],
         "type": []
     },
-    Tabla.SQL_9: {
+    Tabla.ALLASHIRDETOK_KERESOK: {
         "label": [],
         "type": []
     },
@@ -108,7 +108,7 @@ inputs = {
 colnames = {
     Tabla.ONELETRAJZ: ["Id","Fájlnév","Kiterjesztés","Felhasználó azonosító"],
     Tabla.HIRDETESEK: ["Id","Hirdetés cím","Leírása","Szakmai követelmény","Feladás dátuma"],
-    Tabla.FELHASZNALO: ["Id","Vezetéknév", "Keresztnév","Felhasználónév","Jelszó","Email cím","Település","Utca","Házszám","Telefon szám","Admin-e"],
+    Tabla.FELHASZNALO: ["Id","Vezetéknév", "Keresztnév","Felhasználónév","Email cím","Település","Utca","Házszám","Telefon szám"],
     Tabla.MUNKAADO: ["Id","Beosztása","Értékelése","Felhasználói azonosító"],
     Tabla.HIRDETESFELAD: ["Id","Hirdetés azonosító","Címe","Leírása","Feladás ideje","Munkaadó azonosító"],
     Tabla.ALLASKERESO: ["Id","Születési idő","Önéletrajz Id","Felhasználói azonosító"],
@@ -122,8 +122,8 @@ colnames = {
     Tabla.MEGFELELO_ALLASOK: ["Hirdetés azonosító","Hirdetés Cím"],
     Tabla.LEGKIVANTABB_ALLAS: ["Hirdetés cím","Leírás","Jelentkezők száma"],
     Tabla.LEGFIATALABB: ["Vezetéknév", "Keresztnév","Felhasználónév","Email cím","Település","Utca","Házszám","Telefon szám","Születési idő"],
-    Tabla.SQL_8: [],
-    Tabla.SQL_9: []
+    Tabla.LEGELSO_HIRDETOK: ["Vezetéknév", "Keresztnév","Felhasználónév","Email cím","Település","Utca","Házszám","Telefon szám"],
+    Tabla.ALLASHIRDETOK_KERESOK: ["Vezetéknév", "Keresztnév","Beosztás","Születési idő"]
 }
 
 
@@ -157,6 +157,7 @@ SELECT_ALL = "select * from {usertable}"
 
 SELECT_ONEL = "SELECT * FROM Oneletrajzok WHERE feid= :feid_input"
 SELECT_HIRD = "SELECT hirdetesek.*, HirdetesFeladas.mikor FROM hirdetesek,HirdetesFeladas WHERE hirdetesek.id=HirdetesFeladas.hiid"
+SELECT_FELH = "SELECT ID,VEZNEV, KERNEV, FELHNEV, EMAIL, VAROS, UTCA, HAZSZAM, TELEFON FROM FELHASZNALO"
 SELECT_JELE = "SELECT Jelentkezes.id,Jelentkezes.mikor, hirdetesek.nev,hirdetesek.leiras FROM Jelentkezes,hirdetesek WHERE Jelentkezes.hiid=hirdetesek.id AND Jelentkezes.allid=:allid_input"
 SELECT_HIFE = "SELECT HirdetesFeladas.id,hirdetesek.id,hirdetesek.nev,hirdetesek.leiras, HirdetesFeladas.mikor,HirdetesFeladas.muid FROM hirdetesek,HirdetesFeladas WHERE hirdetesek.id=HirdetesFeladas.hiid AND HirdetesFeladas.muid=:muid_input"
 SELECT_BIRT = "SELECT Birtokol.id,Birtokol.szakid,Szakmak.nev,Szakmak.leiras FROM Szakmak,Birtokol WHERE Szakmak.id=Birtokol.szakid AND Birtokol.allid=:all_input"
@@ -185,7 +186,7 @@ MEGFELELO_SZAKMAK_SQL = "SELECT H.ID,H.NEV FROM HIRDETESEK H INNER JOIN SZAKMAK 
 LEGKIVANTABB_ALLAS_SQL = "SELECT * FROM (SELECT NEV, LEIRAS, MAX(J.ID) as JELENTKEZOK FROM HIRDETESEK H INNER JOIN JELENTKEZES J on H.ID = J.HIID GROUP BY NEV, LEIRAS) ORDER BY JELENTKEZOK DESC"
 # -- A legfiatalabb álláskereső
 LEGFIATALABB_SQL = "SELECT VEZNEV, KERNEV, FELHNEV, EMAIL, VAROS, UTCA, HAZSZAM, TELEFON, MAX(A.SZULIDO) as SZULETESI_IDO FROM ALLASKERESO A INNER JOIN FELHASZNALO F on A.FEID = F.ID WHERE SZULIDO = (SELECT MAX(SZULIDO) from ALLASKERESO) GROUP BY VEZNEV, KERNEV, FELHNEV, EMAIL, VAROS, UTCA, HAZSZAM, TELEFON"
-
-SQL_8_SQL = ""
-
-SQL_9_SQL = ""
+# -- Legelső hirdetők
+LEGELSO_HIRDETOK_SQL = "SELECT VEZNEV, KERNEV, FELHNEV, EMAIL, VAROS, UTCA, HAZSZAM, TELEFON FROM FELHASZNALO Inner join MUNKAADO on FELHASZNALO.ID = FEID Inner join HIRDETESFELADAS on MUNKAADO.ID = MUID WHERE HIRDETESFELADAS.MIKOR = (SELECT MIN(HIRDETESFELADAS.MIKOR) FROM HIRDETESFELADAS) ORDER BY VEZNEV"
+# -- Azok a felhasználók akik állás keresők is és hirdetők is
+ALLASHIRDETOK_KERESOK_SQL = "SELECT F.VEZNEV, F.KERNEV,m.beosztas,A.szulido FROM FELHASZNALO F INNER JOIN MUNKAADO M on M.FEID = F.ID INNER JOIN ALLASKERESO A on F.ID = A.FEID ORDER BY A.SZULIDO DESC"

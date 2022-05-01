@@ -226,20 +226,20 @@ def show(menu):
             if loginRequired(False):
                 clean()
                 selected_menu = menu
-                showResult(dao.querry(menu))
+                showResult(dao.selectAll(SELECT_FELH))
                 updateLabel()
                 return
             elif adminRequired(False):
                 clean()
                 selected_menu = menu
-                showResult(dao.querry(menu))
+                showResult(dao.selectAll(SELECT_FELH))
                 showSpecButtons()
                 updateLabel()
                 return
             else:
                 clean()
                 selected_menu = menu
-                showResult(dao.querry(menu))
+                showResult(dao.selectAll(SELECT_FELH))
         case _:
             clean()
             selected_menu = menu
@@ -864,8 +864,8 @@ specialquerrymenu.add_command(label=Tabla.LEGNEPSZERUBB_SZAKMAK.value,
                               command=lambda: showSpec(Tabla.LEGNEPSZERUBB_SZAKMAK))
 specialquerrymenu.add_command(label=Tabla.LEGKIVANTABB_ALLAS.value, command=lambda: showSpec(Tabla.LEGKIVANTABB_ALLAS))
 specialquerrymenu.add_command(label=Tabla.LEGFIATALABB.value, command=lambda: showSpec(Tabla.LEGFIATALABB))
-specialquerrymenu.add_command(label=Tabla.SQL_8.value, command=lambda: showSpec(Tabla.SQL_8))
-specialquerrymenu.add_command(label=Tabla.SQL_9.value, command=lambda: showSpec(Tabla.SQL_9))
+specialquerrymenu.add_command(label=Tabla.LEGELSO_HIRDETOK.value, command=lambda: showSpec(Tabla.LEGELSO_HIRDETOK))
+specialquerrymenu.add_command(label=Tabla.ALLASHIRDETOK_KERESOK.value, command=lambda: showSpec(Tabla.ALLASHIRDETOK_KERESOK))
 menubar.add_cascade(label="Speciális", menu=specialquerrymenu)
 
 root.config(menu=menubar)

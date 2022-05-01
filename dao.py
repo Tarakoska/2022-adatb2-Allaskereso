@@ -108,9 +108,9 @@ def querrySpec(tab_name, data=None):
             query = LEGKIVANTABB_ALLAS_SQL
         case Tabla.LEGFIATALABB:
             query = LEGFIATALABB_SQL
-        case Tabla.SQL_8:
-            query = SQL_8_SQL
-        case Tabla.SQL_9:
-            query = SQL_8_SQL
+        case Tabla.LEGELSO_HIRDETOK:
+            query = LEGELSO_HIRDETOK_SQL
+        case Tabla.ALLASHIRDETOK_KERESOK:
+            query = ALLASHIRDETOK_KERESOK_SQL
 
     return querryWithData(query, data)
