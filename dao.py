@@ -1,11 +1,10 @@
 import cx_Oracle
 from var import *
 
-DB_URL="SYSTEM/admin@localhost/Allasborze"
+DB_URL = "SYSTEM/admin@localhost/Allasborze"
 
 
 def getCursor():
-    global con, cursor
     try:
         con = cx_Oracle.connect(DB_URL)
         cursor = con.cursor()
@@ -13,12 +12,9 @@ def getCursor():
     except cx_Oracle.DatabaseError as e:
         print("There is a problem with Oracle", e)
     except Exception as err:
-        print("Error:"+str(err))
-    finally:
-        if cursor in globals() or cursor in locals():
-            cursor.close()
-        if con in globals() or con in locals():
-            con.close()
+        print("Error:" + str(err))
+
+
 
 def destroyCursor(con, cursor):
     cursor.close()
@@ -27,10 +23,12 @@ def destroyCursor(con, cursor):
 
 def selectAll(sql):
     con, cursor = getCursor()
+    print(sql)
     cursor.execute(sql)
     ret = cursor.fetchall()
     destroyCursor(con, cursor)
     return ret
+
 
 def selectAllColName(table_name):
     con, cursor = getCursor()
@@ -40,20 +38,21 @@ def selectAllColName(table_name):
     return ret
 
 
-def insert(sql,values):
+def insert(sql, values):
     con, cursor = getCursor()
-    cursor.execute(sql,values)
-    con.commit()
-    destroyCursor(con, cursor)
-
-def update(sql,values):
-    con, cursor = getCursor()
-    cursor.execute(sql,values)
+    cursor.execute(sql, values)
     con.commit()
     destroyCursor(con, cursor)
 
 
-def querryOne(tab_name,id):
+def update(sql, values):
+    con, cursor = getCursor()
+    cursor.execute(sql, values)
+    con.commit()
+    destroyCursor(con, cursor)
+
+
+def selectOne(tab_name, id):
     sql = SELECT_ONE.format(usertable=tab_name.value)
     con, cursor = getCursor()
     cursor.execute(sql, id_input=id)
@@ -62,21 +61,56 @@ def querryOne(tab_name,id):
     return ret
 
 
-def delete(tab_name,id):
+def querryOne(sql, data):
+    con, cursor = getCursor()
+    cursor.execute(sql, data)
+    ret = cursor.fetchall()
+    destroyCursor(con, cursor)
+    return ret
+
+
+def querryWithData(sql, data):
+    con, cursor = getCursor()
+    cursor.execute(sql, data)
+    ret = cursor.fetchall()
+    destroyCursor(con, cursor)
+    return ret
+
+
+def delete(tab_name, id):
     sql = DELETE_ONE.format(usertable=tab_name.value)
     con, cursor = getCursor()
-    cursor.execute(sql,id_input=id)
+    cursor.execute(sql, id_input=id)
     con.commit()
     destroyCursor(con, cursor)
 
+
 def querry(tab_name):
-    colnames = selectAllColName(tab_name.value)
     query = SELECT_ALL.format(usertable=tab_name.value)
-    return colnames,selectAll(query)
+    return colnames[tab_name], selectAll(query)
 
-def querrySpec(tab_name):
+
+def querrySpec(tab_name, data=None):
+    if data is None:
+        data = []
     match tab_name:
-        case Tabla.EZERMESTEREK:query = EZERMESTEREK_SQL
-    return colnames[tab_name],selectAll(query)
+        case Tabla.FRISS_JELENTKEZESEK:
+            query = FRISS_JELENTKEZESEK_SQL
+        case Tabla.LEGTOBB_LEHETOSEG:
+            query = LEGTOBB_LEHETOSEG_SQL
+        case Tabla.EZERMESTEREK:
+            query = EZERMESTEREK_SQL
+        case Tabla.LEGNEPSZERUBB_SZAKMAK:
+            query = LEGNEPSZERUBB_SZAKMAK_SQL
+        case Tabla.MEGFELELO_ALLASOK:
+            query = MEGFELELO_SZAKMAK_SQL
+        case Tabla.LEGKIVANTABB_ALLAS:
+            query = LEGKIVANTABB_ALLAS_SQL
+        case Tabla.LEGFIATALABB:
+            query = LEGFIATALABB_SQL
+        case Tabla.SQL_8:
+            query = SQL_8_SQL
+        case Tabla.SQL_9:
+            query = SQL_8_SQL
 
-
+    return colnames[tab_name], querryWithData(query, data)
