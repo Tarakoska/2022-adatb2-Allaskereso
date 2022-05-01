@@ -87,7 +87,7 @@ def delete(tab_name, id):
 
 def querry(tab_name):
     query = SELECT_ALL.format(usertable=tab_name.value)
-    return colnames[tab_name], selectAll(query)
+    return selectAll(query)
 
 
 def querrySpec(tab_name, data=None):
@@ -113,4 +113,4 @@ def querrySpec(tab_name, data=None):
         case Tabla.SQL_9:
             query = SQL_8_SQL
 
-    return colnames[tab_name], querryWithData(query, data)
+    return querryWithData(query, data)
